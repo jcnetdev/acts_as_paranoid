@@ -9,6 +9,8 @@ config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))
 ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")
 ActiveRecord::Base.establish_connection(config[ENV['DB'] || 'sqlite'])
 
+NAMED_SCOPE_TESTS = ActiveRecord::Base.respond_to?(:named_scope)
+
 load(File.dirname(__FILE__) + "/schema.rb")
 
 Test::Unit::TestCase.fixture_path = File.dirname(__FILE__) + "/fixtures/"
